@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- QR Code Library -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 800px;
+            height: auto;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            font-weight: 600;
+            color: #fff;
+            font-size: 2rem;
+        }
+        h2 {
+            font-weight: 300;
+            color: #ddd;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            width: 90%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-align: center;
+        }
+        input::placeholder {
+            color: #ddd;
+        }
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        button {
+            width: 90%;
+            padding: 12px;
+            background: #ff6b6b;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        button:hover {
+            background: #e63946;
+            transform: scale(1.05);
+        }
+        .generated {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .generated img {
+            width: 220px;
+            height: 220px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <h2>Insert a link below to generate a QR code</h2>
+
+        <!-- Form for entering the link -->
+        <input type="text" id="link" placeholder="Enter your link here" required>
+        <button onclick="generateQRCode()">Generate QR</button>
+
+        <!-- Placeholder for generated QR Code -->
+        <div id="qrcode" class="generated"></div>
+    </div>
+
+    <script>
+        // Function to generate the QR code
+        function generateQRCode() {
+            // Get the input value (link)
+            var data = document.getElementById('link').value;
+
+            // Check if there's a link entered
+            if (data) {
+                // Clear any previous QR code
+                document.getElementById('qrcode').innerHTML = '';
+
+                // Create the QR code using the QRCode.js library
+                new QRCode(document.getElementById("qrcode"), {
+                    text: data,
+                    width: 220,
+                    height: 220,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } else {
+                alert("Please enter a link or text.");
+            }
+        }
+    </script>
+</body>
+</html>
